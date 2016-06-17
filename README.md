@@ -7,6 +7,8 @@
 
 ## Caveats
 
+- I am working around the manual steps to setup a rancher-ha cluster by using a mysql dump of a previous bootstrap.
+- I am not sure how to change the mysql credentials at this time. Best to use the provided defaults.
 - Currently using self-signed ssl certs.
 - Using http instead of https for rancher registration url.
 - Authentication is not enabled in rancher. You will need to manually enable authentication after the deployment.
