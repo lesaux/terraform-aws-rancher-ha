@@ -13,7 +13,6 @@ module "vpc" {
   domain_name               = "${var.domain_name}"
 }
 
-/*
 module "rds" {
   source                          = "./modules/rds"
   environment                     = "${var.environment_name}"
@@ -78,4 +77,3 @@ module "rancher_hosts" {
   rancher_hosts_public_subnets_ids    = "${module.vpc.public_subnets_ids}"
   rancher_registration_url            = "${var.rancher_protocol}://${var.rancher_url}.${var.domain_name}"
 }
-*/
