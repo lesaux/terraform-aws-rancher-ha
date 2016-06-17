@@ -4,6 +4,14 @@
 
 - An existing keypair in AWS.
 - An existing public hosted zone for your domain.
+- Create a terraform.tfvars like:
+```
+aws_access_key  = "yourawsaccesskey"
+aws_secret_key  = "yourawssecretkey"
+route53_zone_id = "your zone id"
+domain_name     = "your.domain.name"
+```
+
 
 ## Caveats
 
