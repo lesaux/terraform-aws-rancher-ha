@@ -1,0 +1,19 @@
+#!/bin/sh
+
+cat > "/tmp/cloud-config.yaml" <<EOF
+#cloud-config
+hostname: ${HOSTNAME}
+
+#ssh_authorized_keys:
+
+rancher:
+  services_include:
+    ubuntu-console: true
+      
+EOF
+
+sudo mkdir -p /etc/cloud
+echo "preserve_hostname: true" | tee /etc/cloud/cloud.cfg
+
+sudo ros config import -i /tmp/cloud-config.yaml
+sudo reboot

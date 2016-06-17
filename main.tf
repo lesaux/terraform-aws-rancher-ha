@@ -1,0 +1,81 @@
+module "vpc" {
+  source                    = "./modules/vpc"
+  name                      = "${var.vpc_name}"
+  environment               = "${var.environment_name}"
+  cidr                      = "${var.vpc_cidr}"
+  private_subnets           = "${var.vpc_private_subnets}"
+  public_subnets            = "${var.vpc_public_subnets}"
+  azs                       = "${var.vpc_zones}"
+  bastion_ssh_key_name      = "${var.bastion_key_name}"
+  bastion_instance_type     = "${var.bastion_instance_type}"
+  bastion_ami               = "${var.bastion_ami}"
+  route53_zone_id           = "${var.route53_zone_id}"
+  domain_name               = "${var.domain_name}"
+}
+
+/*
+module "rds" {
+  source                          = "./modules/rds"
+  environment                     = "${var.environment_name}"
+  vpc_id                          = "${module.vpc.vpc_id}"
+  route53_zone_id                 = "${var.route53_zone_id}"
+  sg_cidr_ingress                 = "${var.vpc_cidr}"                         #is using the vpc cidr safe enough?
+  private_subnets_ids             = "${module.vpc.private_subnets_ids}"
+  rds_family                      = "${var.rds_family}"
+  rds_dns_name                    = "${var.rds_dns_name}"
+  rds_db_name                     = "${var.rds_db_name}"
+  rds_db_user                     = "${var.rds_db_user}"
+  rds_db_pass                     = "${var.rds_db_pass}"
+  rds_storage                     = "${var.rds_storage}"
+  rds_engine                      = "${var.rds_engine}"
+  rds_engine_version              = "${var.rds_engine_version}"
+  rds_instance_class              = "${var.rds_instance_class}"
+  rds_multi_az                    = "${var.rds_multi_az}"
+  rds_allow_major_version_upgrade = "${var.rds_allow_major_version_upgrade}"
+  rds_final_snapshot_identifier   = "${var.rds_final_snapshot_identifier}"
+  rds_skip_final_snapshot         = "${var.rds_skip_final_snapshot}"
+  rds_backup_retention_period     = "${var.rds_backup_retention_period}"
+}
+
+module "rancher_servers" {
+  source                              = "./modules/rancher_servers"
+  environment                         = "${var.environment_name}"
+  route53_zone_id                     = "${var.route53_zone_id}"
+  bastion_host                        = "${module.vpc.bastion_public_ip}"
+  bastion_user                        = "${var.bastion_user}"
+  rancher_user                        = "${var.rancher_user}"
+  rancher_servers_count               = "${var.rancher_servers_count}"
+  rancher_servers_ami                 = "${var.rancher_servers_ami}"
+  rancher_servers_instance_type       = "${var.rancher_servers_instance_type}"
+  rancher_servers_ssh_key_name        = "${var.rancher_servers_ssh_key_name}"
+  rancher_servers_security_groups     = "${module.vpc.security_group_internal},${module.vpc.security_group_public_web}"
+  rancher_servers_private_subnets_ids = "${module.vpc.private_subnets_ids}"
+  rancher_servers_public_subnets_ids  = "${module.vpc.public_subnets_ids}"
+  rancher_encryption_key              = "${var.rancher_encryption_key}"
+  rds_address                         = "${module.rds.endpoint}"
+  rds_db_name                         = "${var.rds_db_name}"
+  rds_db_user                         = "${var.rds_db_user}"
+  rds_db_pass                         = "${var.rds_db_pass}"
+  rds_db_token                        = "${var.rds_db_token}"
+  rancher_url                         = "${var.rancher_url}"
+  rancher_registration_url            = "${var.rancher_protocol}://${var.rancher_url}.${var.domain_name}"
+}
+
+module "rancher_hosts" {
+  source                              = "./modules/rancher_hosts"
+  force_dependency                    = "${module.rancher_servers.depends_id}" #this is to force a depency
+  environment                         = "${var.environment_name}"
+  route53_zone_id                     = "${var.route53_zone_id}"
+  bastion_host                        = "${module.vpc.bastion_public_ip}"
+  bastion_user                        = "${var.bastion_user}"
+  rancher_user                        = "${var.rancher_user}"
+  rancher_hosts_count                 = "${var.rancher_hosts_count}"
+  rancher_hosts_ami                   = "${var.rancher_hosts_ami}"
+  rancher_hosts_instance_type         = "${var.rancher_hosts_instance_type}"
+  rancher_hosts_ssh_key_name          = "${var.rancher_hosts_ssh_key_name}"
+  rancher_hosts_security_groups       = "${module.vpc.security_group_internal},${module.vpc.security_group_public_web}"
+  rancher_hosts_private_subnets_ids   = "${module.vpc.private_subnets_ids}"
+  rancher_hosts_public_subnets_ids    = "${module.vpc.public_subnets_ids}"
+  rancher_registration_url            = "${var.rancher_protocol}://${var.rancher_url}.${var.domain_name}"
+}
+*/

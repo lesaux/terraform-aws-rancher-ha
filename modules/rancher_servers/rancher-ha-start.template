@@ -1,0 +1,16 @@
+#!/bin/sh
+set -e
+
+IMAGE=\$1
+if [ \"\$IMAGE\" = \"\" ]; then
+    echo Usage: \$0 DOCKER_IMAGE
+    exit 1
+fi
+
+docker rm -fv rancher-ha >/dev/null 2>&1 || true
+ID=\`docker run --restart=always -d -v /var/run/docker.sock:/var/run/docker.sock --name rancher-ha --net host --privileged -v /var/lib/rancher/etc:/var/lib/rancher/etc \$IMAGE ha\`
+
+echo Started container rancher-ha \$ID
+echo Run the below to see the logs
+echo
+echo docker logs -f rancher-ha

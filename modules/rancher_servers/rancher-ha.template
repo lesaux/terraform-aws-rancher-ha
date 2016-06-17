@@ -1,0 +1,44 @@
+#!/bin/sh
+set -e
+umask 077
+
+mkdir -p /var/lib/rancher/etc/server
+mkdir -p /var/lib/rancher/etc/ssl
+mkdir -p /var/lib/rancher/bin
+
+echo Creating /var/lib/rancher/etc/server.conf
+cat > /var/lib/rancher/etc/server.conf << EOF
+export CATTLE_HA_CLUSTER_SIZE=3
+export CATTLE_HA_HOST_REGISTRATION_URL=${CATTLE_HA_HOST_REGISTRATION_URL}
+export CATTLE_HA_CONTAINER_PREFIX=rancher-ha-
+
+export CATTLE_DB_CATTLE_MYSQL_HOST=${CATTLE_DB_CATTLE_MYSQL_HOST}
+export CATTLE_DB_CATTLE_MYSQL_PORT=3306
+export CATTLE_DB_CATTLE_MYSQL_NAME=${CATTLE_DB_CATTLE_MYSQL_NAME}
+export CATTLE_DB_CATTLE_USERNAME=${CATTLE_DB_CATTLE_USERNAME}
+export CATTLE_DB_CATTLE_PASSWORD=${CATTLE_DB_CATTLE_PASSWORD}
+
+export CATTLE_HA_PORT_REDIS=6379
+export CATTLE_HA_PORT_SWARM=2376
+export CATTLE_HA_PORT_HTTP=80
+export CATTLE_HA_PORT_HTTPS=443
+export CATTLE_HA_PORT_PP_HTTP=81
+export CATTLE_HA_PORT_PP_HTTPS=444
+export CATTLE_HA_PORT_ZK_CLIENT=2181
+export CATTLE_HA_PORT_ZK_QUORUM=2888
+export CATTLE_HA_PORT_ZK_LEADER=3888
+
+# Uncomment below to force HA enabled and not require one to set it in the UI
+export CATTLE_HA_ENABLED=true
+EOF
+
+
+
+
+echo Creating /var/lib/rancher/etc/server/encryption.key
+if [ -e /var/lib/rancher/etc/server/encryption.key ]; then
+    mv /var/lib/rancher/etc/server/encryption.key /var/lib/rancher/etc/server/encryption.key.\`date '+%s'\`
+fi
+cat > /var/lib/rancher/etc/server/encryption.key << EOF
+${ENCRYPTION_KEY}
+EOF
