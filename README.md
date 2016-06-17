@@ -3,7 +3,7 @@
 ## Requirements
 
 - An existing keypair in AWS.
-
+- An existing public hosted zone for your domain.
 
 ## Caveats
 
