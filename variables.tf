@@ -29,10 +29,10 @@ variable "rds_storage" { default = 10 }
 variable "rds_engine" { default = "mysql" }
 variable "rds_engine_version" { default = "5.7.10" }
 variable "rds_instance_class" { default = "db.t2.medium" }
-variable "rds_multi_az" { default = false }
+variable "rds_multi_az" { default = true }
 variable "rds_allow_major_version_upgrade" { default = false }
 variable "rds_final_snapshot_identifier" { default = "rancher-final" }
-variable "rds_skip_final_snapshot" { default = true }
+variable "rds_skip_final_snapshot" { default = false }
 variable "rds_backup_retention_period" { default = 5 }
 
 ## Jenkins Variables
