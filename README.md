@@ -4,7 +4,7 @@
 
 - An existing keypair in AWS.
 - An existing public hosted zone for your domain.
-- Create a terraform.tfvars like:
+- Create a terraform.tfvars file with your secrets:
 ```
 aws_access_key  = "yourawsaccesskey"
 aws_secret_key  = "yourawssecretkey"
@@ -20,7 +20,7 @@ domain_name     = "your.domain.name"
 - Currently using self-signed ssl certs.
 - Using http instead of https for rancher registration url.
 - Authentication is not enabled in rancher. You will need to manually enable authentication after the deployment.
-- Deployment takes a long time (around 20mins). Waiting for the cluster to be ready can take up to 12mins, and rebooting rancheros to set a hostname takes
+- Deployment takes a long time (around 20mins). Waiting for the cluster to be ready can take up to 12mins. It seems that rebooting rancheros to set a hostname takes
 a long time as well.
 - I've noticed that once in a while, one of the rancher servers will not initialize properly. If that's the case cleanup docker containers running on that host and run the deployment command again.
 
