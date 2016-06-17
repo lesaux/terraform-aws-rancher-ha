@@ -1,5 +1,10 @@
 # Terraform rancher-ha servers and hosts deployment
 
+## Features
+
+- Multi-AZ deployment in private subnets.
+- Adjustable rancher-servers and rancher-hosts count.
+
 ## Requirements
 
 - An existing keypair in AWS.
